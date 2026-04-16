@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from argparse import ArgumentParser
 
-from ollama import chat, ChatResponse
+import ollama
 
 DEFAULT_MODEL = "qwen3.5:4b"
 #DEFAULT_MODEL = "glm-4.7-flash"
@@ -41,7 +41,7 @@ def read_dir(path_to_read: str, thinking_mode: bool = False, model: str = DEFAUL
 
     messages = [{'role': 'user', 'content': f'Can you explain to me what the code does under `{path_to_read}`?'}]
     while True:
-        response: ChatResponse = chat(
+        response: ollama.ChatResponse = ollama.chat(
             model=model,
             messages=messages,
             tools=[list_files_and_dirs, read_file_content],
